@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import {Stack} from "react-bootstrap";
+import DataDisplayFetchApi from "../components/DataDisplayFetchApi";
 
 function DashboardPage() {
   return (
@@ -11,6 +12,8 @@ function DashboardPage() {
               <Logo className="p-2" />
               <Navigation />
           </Stack>
+
+          <DataDisplayFetchApi/>
       </>
   );
 }
