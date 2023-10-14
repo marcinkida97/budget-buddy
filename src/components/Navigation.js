@@ -1,7 +1,8 @@
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Col, Container, Image, Nav, Navbar, NavDropdown, Row, Stack} from "react-bootstrap";
 import React from "react";
+import Logo from "./Logo";
 
 function Navigation() {
     return (

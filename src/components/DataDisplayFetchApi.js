@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import DataEntity from "./DataEntity";
 
 function DataDisplayFetchApi () {
 
@@ -19,7 +18,7 @@ function DataDisplayFetchApi () {
 
     return (
         <>
-            {data.map(entity => <DataEntity key={entity.budgetEntryId} dataEntity={entity}/>)}
+            {console.log(data)}
         </>
     );
 }

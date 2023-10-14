@@ -12,7 +12,6 @@ function DashboardPage() {
               <Logo className="p-2" />
               <Navigation />
           </Stack>
-
           <DataDisplayFetchApi/>
       </>
   );
