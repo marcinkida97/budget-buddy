@@ -1,7 +1,10 @@
-import '../../App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import '../../../App.css';
+import React from "react";
+import Stack from "react-bootstrap/Stack";
+import {Col} from "react-bootstrap";
+import Image from 'react-bootstrap/Image';
 
-function Logo() {
+const Logo = () => {
     return (
         <Stack direction="horizontal" gap={3}>
             <Image className="p-2" src={require('./piggy-bank.png')} height={100} width={100}/>

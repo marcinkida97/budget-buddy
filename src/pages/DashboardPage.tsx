@@ -1,16 +1,10 @@
 import '../App.css';
-import Logo from "../components/Logo/Logo";
-import Navigation from "../components/Navigation/Navigation";
-import Stack from 'react-bootstrap/Stack';
+import Header from "../components/Header/Header";
+import Logo from "../components/Header/Logo/Logo";
 
-function DashboardPage() {
+const DashboardPage = () => {
   return (
-      <>
-          <Stack direction="horizontal" gap={3} className="d-flex justify-content-between">
-              <Logo/>
-              <Navigation/>
-          </Stack>
-      </>
+      <Logo/>
   );
 }
 

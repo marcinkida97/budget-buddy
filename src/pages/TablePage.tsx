@@ -1,10 +1,11 @@
 import '../App.css';
+import Header from "../components/Header/Header";
 import Logo from "../components/Header/Logo/Logo";
 
-const LandingPage = () => {
+const TablePage = () => {
   return (
       <Logo/>
   );
 }
 
-export default LandingPage;
+export default TablePage;
