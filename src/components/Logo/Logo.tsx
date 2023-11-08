@@ -1,6 +1,5 @@
-import '../App.css';
+import '../../App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {Col, Container, Image, Row, Stack} from "react-bootstrap";
 
 function Logo() {
     return (
