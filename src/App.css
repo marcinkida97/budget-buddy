@@ -1,3 +1,23 @@
 .defaultColor {
   color: #1F80CC;
 }
+
+.appStyle {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: #fff; /* Kolor kartki w kratkę */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Cień na tle */
+}
+
+.content {
+  width: 210mm; /* Szerokość kartki A4 */
+  height: 297mm; /* Wysokość kartki A4 */
+  background-color: white;
+  padding: 20px;
+}

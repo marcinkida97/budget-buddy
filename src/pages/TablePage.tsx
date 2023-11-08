@@ -1,10 +1,9 @@
 import '../App.css';
-import Header from "../components/Header/Header";
-import Logo from "../components/Header/Logo/Logo";
+import BudgetTable from "../components/Table/BudgetTable";
 
 const TablePage = () => {
   return (
-      <Logo/>
+      <BudgetTable/>
   );
 }
 

@@ -5,7 +5,7 @@ import Navigation from "./Navigation/Navigation";
 const Header = () => {
     return (
         <>
-            <Stack direction="horizontal" gap={3} className="d-flex justify-content-between">
+            <Stack direction="horizontal" gap={3} className="d-flex justify-content-between bg-body-tertiary">
                 <Logo/>
                 <Navigation/>
             </Stack>
