@@ -1,7 +1,7 @@
 import '../App.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import Logo from "../components/Logo/Logo";
 import Navigation from "../components/Navigation/Navigation";
+import Stack from 'react-bootstrap/Stack';
 
 function DashboardPage() {
   return (
