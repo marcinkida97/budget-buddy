@@ -16,11 +16,7 @@ const DataDisplayFetchApi = () => {
         fetchData();
     }, []);
 
-    return (
-        <>
-            {console.log(data)}
-        </>
-    );
+    return (data);
 }
 
 export default DataDisplayFetchApi;

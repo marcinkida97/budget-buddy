@@ -11,13 +11,13 @@ const Navigation = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Nav className="me-auto">
                         <Nav.Item>
-                            <Nav.Link href={"/"}>Dashboard</Nav.Link>
+                            <Nav.Link href={"/dashboard"}>Dashboard</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href={"/table"}>Table</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href={"/logout"}>Logout</Nav.Link>
+                            <Nav.Link href={"/"}>Logout</Nav.Link>
                         </Nav.Item>
                     </Nav>
             </Container>
