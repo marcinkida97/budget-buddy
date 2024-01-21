@@ -1,9 +1,10 @@
 import './App.css';
 import DashboardPage from "./pages/DashboardPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import TablePage from "./pages/TablePage";
+import MyBudget from "./pages/MyBudget";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
     return (
@@ -13,14 +14,12 @@ function App() {
                     <Routes>
                         <Route path={"/"} element={<LoginPage/>}/>
                         <Route path={"/signup"} element={<SignupPage/>}/>
-                        <Route path={"/dashboard"} element={<DashboardPage/>}/>
-                        <Route path={"/table"} element={<TablePage/>}/>
+                        <Route path={"/dashboard"} element={<PrivateRoute element={<DashboardPage/>}/>}/>
+                        <Route path={"/mybudget"} element={<PrivateRoute element={<MyBudget/>}/>}/>
                     </Routes>
                 </BrowserRouter>
             </div>
         </div>
-
-
     );
 }
 

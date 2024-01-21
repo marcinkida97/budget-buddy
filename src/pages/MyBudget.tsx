@@ -2,7 +2,7 @@ import '../App.css';
 import BudgetTable from "../components/Table/BudgetTable";
 import Header from "../components/Header/Header";
 
-const TablePage = () => {
+const MyBudget = () => {
   return (
       <>
         <Header/>
@@ -11,4 +11,4 @@ const TablePage = () => {
   );
 }
 
-export default TablePage;
+export default MyBudget;

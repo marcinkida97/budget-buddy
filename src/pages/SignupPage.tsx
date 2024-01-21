@@ -1,17 +1,14 @@
 import '../App.css';
-import {Link} from "react-router-dom";
-import React, {useContext, useEffect, useRef, useState} from "react";
-import axios from "../api/axios";
-import AuthContext from "../context/AuthProvider";
-import LoginPage from "./LoginPage";
+import { Link, Navigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from '../api/axios';
+import {AxiosError} from "axios";
 
-const LOGIN_URL = '/api/v1/auth/register';
+const REGISTER_URL = '/api/v1/auth/register';
 
 const SignupPage = () => {
-  // @ts-ignore
-  const {setAuthToken} = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>(null);
-  const errRef = useRef();
+  const errRef = useRef<HTMLInputElement>(null);
 
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -28,100 +25,115 @@ const SignupPage = () => {
     setErrMessage('');
   }, [firstname, lastname, email, password]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-          LOGIN_URL,
-          JSON.stringify({firstname, lastname, email, password}),
+      await axios.post(
+          REGISTER_URL,
+          { firstname, lastname, email, password },
           {
             headers: { 'Content-Type': 'application/json' },
-            withCredentials: true
+            withCredentials: true,
           }
       );
-      const accessToken = response?.data?.token;
-      setAuthToken({accessToken});
+
       setFirstname('');
       setLastname('');
       setEmail('');
       setPassword('');
       setSuccess(true);
-    } catch (err: any) {
-      if (!err?.response) {
-        setErrMessage('No Server Response');
-      } else if (err.response?.status === 400) {
-        setErrMessage('Missing something');
-      } else if (err.response?.status === 401) {
-        setErrMessage('Unauthorized');
+    } catch (err) {
+      if ((err as AxiosError)?.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (!axiosError?.response) {
+          setErrMessage('No Server Response');
+        } else if (axiosError.response?.status === 400) {
+          setErrMessage('Missing something');
+        } else if (axiosError.response?.status === 401) {
+          setErrMessage('Unauthorized');
+        } else {
+          setErrMessage('Sign Up Failed!');
+        }
       } else {
-        setErrMessage('Login Failed!');
+        setErrMessage('An unexpected error occurred');
       }
-      // @ts-ignore
-      errRef.current.focus();
+
+      if (errRef.current) {
+        errRef.current.focus();
+      }
     }
-  }
+  };
 
   return (
       <>
-      {success ? (
-          <LoginPage/>
-      ) : (
-          <div className={'signup template d-flex justify-content-center align-items-center'}>
-            <div className={'form_container p-5'}>
-              <form onSubmit={handleSubmit}>
-                <h3 className={'text-center'}>Sign In</h3>
-                <div className={'mb-2'}>
-                  <label htmlFor={'fname'}>First name</label>
-                  <input
-                      type={'text'}
-                      placeholder={'firstname'}
-                      className={'form-control'}
-                      value={firstname}
-                      onChange={(e) => setFirstname(e.target.value)}
-                  />
-                </div>
-                <div className={'mb-2'}>
-                  <label htmlFor={'lname'}>Last name</label>
-                  <input
-                      type={'text'}
-                      placeholder={'lastname'}
-                      className={'form-control'}
-                      value={lastname}
-                      onChange={(e) => setLastname(e.target.value)}
-                  />
-                </div>
-                <div className={'mb-2'}>
-                  <label htmlFor={'email'}>Email</label>
-                  <input
-                      type={'email'}
-                      placeholder={'email'}
-                      className={'form-control'}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className={'mb-2'}>
-                  <label htmlFor={'password'}>Password</label>
-                  <input
-                      type={'password'}
-                      placeholder={'password'}
-                      className={'form-control'}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className={'d-grid'}>
-                  <button className={'btn btn-primary'}>Sign up</button>
-                </div>
-                <p className={'text-end mt-2'}>
-                  Already registered?<Link to={'/'} className={'ms-2'}>Sign in</Link>
-                </p>
-              </form>
+        {success ? (
+            <Navigate to="/" />
+        ) : (
+            <div className="signup template d-flex justify-content-center align-items-center">
+              <div className="form_container p-5">
+                <form onSubmit={handleSubmit}>
+                  <h3 className="text-center">Sign Up</h3>
+                  <div className="mb-2">
+                    <label htmlFor="fname">First name</label>
+                    <input
+                        type="text"
+                        placeholder="firstname"
+                        className="form-control"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="lname">Last name</label>
+                    <input
+                        type="text"
+                        placeholder="lastname"
+                        className="form-control"
+                        value={lastname}
+                        onChange={(e) => setLastname(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        placeholder="email"
+                        className="form-control"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        placeholder="password"
+                        className="form-control"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className="d-grid">
+                    <button type="submit" className="btn btn-primary">
+                      Sign up
+                    </button>
+                  </div>
+                  <p className="text-end mt-2">
+                    Already registered? <Link to="/" className="ms-2">Sign in</Link>
+                  </p>
+                </form>
+                {errMessage && (
+                    <div className="alert alert-danger mt-3" ref={errRef} role="alert">
+                      {errMessage}
+                    </div>
+                )}
+              </div>
             </div>
-          </div>)}
+        )}
       </>
   );
-}
+};
 
 export default SignupPage;

@@ -1,21 +1,17 @@
-import '../App.css';
-import React, {useContext, useEffect, useRef, useState} from 'react'
-import {Link} from "react-router-dom";
-import DashboardPage from "./DashboardPage";
-import AuthContext from "../context/AuthProvider";
-import axios from "../api/axios";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import axios from '../api/axios';
+import {AxiosError} from "axios";
 
 const LOGIN_URL = '/api/v1/auth/authenticate';
 
 const LoginPage = () => {
-  // @ts-ignore
-  const {setAuthToken} = useContext(AuthContext);
   const userRef = useRef<HTMLInputElement>(null);
-  const errRef = useRef();
+  const errRef = useRef<HTMLInputElement>(null);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errMessage, setErrMessage] = useState('');
+  const [errMessage, setErrMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -23,95 +19,108 @@ const LoginPage = () => {
   }, []);
 
   useEffect(() => {
-    setErrMessage('');
+    setErrMessage(null);
   }, [email, password]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
           LOGIN_URL,
-          JSON.stringify({email, password}),
+          { email, password },
           {
             headers: { 'Content-Type': 'application/json' },
-            withCredentials: true
+            withCredentials: true,
           }
       );
-      const accessToken = response?.data?.token;
-      setAuthToken({accessToken});
-      const firstname = response?.data?.firstname;
-      const lastname = response?.data?.lastname;
-      localStorage.setItem('token', accessToken);
+
+      const { firstname, lastname, token, budgets } = response?.data || {};
       localStorage.setItem('firstname', firstname);
       localStorage.setItem('lastname', lastname);
+      localStorage.setItem('token', token);
+      localStorage.setItem('budgets', budgets);
+
       setEmail('');
       setPassword('');
       setSuccess(true);
-    } catch (err: any) {
-      if (!err?.response) {
-        setErrMessage('No Server Response');
-      } else if (err.response?.status === 400) {
-        setErrMessage('Missing Username or Password');
-      } else if (err.response?.status === 401) {
-        setErrMessage('Unauthorized');
+    } catch (err) {
+      if ((err as AxiosError)?.isAxiosError) {
+        const axiosError = err as AxiosError;
+
+        if (!axiosError?.response) {
+          setErrMessage('No Server Response');
+        } else if (axiosError.response.status === 400) {
+          setErrMessage('Missing Username or Password');
+        } else if (axiosError.response.status === 401) {
+          setErrMessage('Unauthorized');
+        } else {
+          setErrMessage('Login Failed! Probably due to wrong email or password ;)');
+        }
       } else {
-        setErrMessage('Login Failed!');
+        setErrMessage('An unexpected error occurred');
       }
-      // @ts-ignore
-      errRef.current.focus();
+
+      if (errRef.current) {
+        errRef.current.focus();
+      }
     }
+  };
+
+  if (success) {
+    return <Navigate to="/dashboard" />;
   }
 
   return (
-      <>
-        {success ? (
-            <DashboardPage/>
-        ) : (
-            <div className={'login template d-flex justify-content-center align-items-center'}>
-              <div className={'form_container p-5'}>
-                <form onSubmit={handleSubmit}>
-                  <h3 className={'text-center'}>Sign In</h3>
-                  <div className={'mb-2'}>
-                    <label htmlFor={'email'}>Email</label>
-                    <input
-                        type={'email'}
-                        placeholder={'email'}
-                        className={'form-control'}
-                        id={'email'}
-                        ref={userRef}
-                        autoComplete={'off'}
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                    />
-                  </div>
-                  <div className={'mb-2'}>
-                    <label htmlFor={'password'}>Password</label>
-                    <input
-                        type={'password'}
-                        placeholder={'password'}
-                        className={'form-control'}
-                        id={'password'}
-                        ref={userRef}
-                        autoComplete={'off'}
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
-                    />
-                  </div>
-                  <div className={'d-grid'}>
-                    <button className={'btn btn-primary'}>Sign in</button>
-                  </div>
-                  <p className={'text-end mt-2'}>
-                    Don't have an account yet?<Link to={'/signup'} className={'ms-2'}>Sign up</Link>
-                  </p>
-                </form>
-              </div>
+      <div className="login template d-flex justify-content-center align-items-center">
+        <div className="form_container p-5">
+          <form onSubmit={handleSubmit}>
+            <h3 className="text-center">Sign In</h3>
+            <div className="mb-2">
+              <label htmlFor="email">Email</label>
+              <input
+                  type="email"
+                  placeholder="email"
+                  className="form-control"
+                  id="email"
+                  ref={userRef}
+                  autoComplete="off"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  required
+              />
             </div>
-        )}
-      </>
+            <div className="mb-2">
+              <label htmlFor="password">Password</label>
+              <input
+                  type="password"
+                  placeholder="password"
+                  className="form-control"
+                  id="password"
+                  ref={userRef}
+                  autoComplete="off"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  required
+              />
+            </div>
+            <div className="d-grid">
+              <button type="submit" className="btn btn-primary">
+                Sign in
+              </button>
+            </div>
+            <p className="text-end mt-2">
+              Don't have an account yet? <Link to="/signup" className="ms-2">Sign up</Link>
+            </p>
+          </form>
+          {errMessage && (
+              <div className="alert alert-danger mt-3" ref={errRef} role="alert">
+                {errMessage}
+              </div>
+          )}
+        </div>
+      </div>
   );
-}
+};
 
 export default LoginPage;
