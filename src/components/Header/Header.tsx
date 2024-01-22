@@ -7,7 +7,7 @@ import React from "react";
 const Header = () => {
     return (
         <>
-            <Stack direction="horizontal" gap={3} className="d-flex bg-body-tertiary defaultColor">
+            <Stack direction="horizontal" gap={3} className="p-2 d-flex bg-body-tertiary defaultColor default_margin_separation">
                 <Col>
                     <Logo/>
                     <Navigation/>

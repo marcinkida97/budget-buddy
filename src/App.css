@@ -19,11 +19,14 @@
   width: 210mm; /* Szerokość kartki A4 */
   height: 297mm; /* Wysokość kartki A4 */
   background-color: white;
-  padding: 20px;
 }
 
 .form_container {
   width: 50%;
+}
+
+.default_margin_separation {
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 1000px) {
