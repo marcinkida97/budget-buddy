@@ -5,8 +5,10 @@ import MyBudget from "./pages/MyBudget";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import PrivateRoute from "./components/PrivateRoute";
+import useFetchUser from "./components/Header/hooks/useFetchUser";
 
 function App() {
+
     return (
         <div className={"appStyle"}>
             <div className={"content"}>

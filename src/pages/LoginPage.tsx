@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from '../api/axios';
 import {AxiosError} from "axios";
@@ -35,11 +35,9 @@ const LoginPage = () => {
           }
       );
 
-      const { firstname, lastname, token, budgets } = response?.data || {};
-      localStorage.setItem('firstname', firstname);
-      localStorage.setItem('lastname', lastname);
+      const { token, userId } = response?.data || {};
       localStorage.setItem('token', token);
-      localStorage.setItem('budgets', budgets);
+      localStorage.setItem('userId', userId);
 
       setEmail('');
       setPassword('');

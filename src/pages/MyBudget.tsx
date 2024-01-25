@@ -1,14 +1,14 @@
-import '../App.css';
-import BudgetTable from "../components/Table/BudgetTable";
+import React, {useState} from 'react';
 import Header from "../components/Header/Header";
 import AddButton from "../components/AddButton";
-import {useState} from "react";
-import AddEntryModal from "../components/AddEntryModal";
+import BudgetTable from "../components/Table/BudgetTable";
+import useFetchBudgetEntitiesInfo from "./hooks/useFetchBudgetEntitiesInfo";
 
 const MyBudget = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    useFetchBudgetEntitiesInfo();
 
-    const handleAddEntity = () => {
+    const handleOnClick = () => {
         setIsAddModalOpen(true);
     }
 
@@ -16,14 +16,19 @@ const MyBudget = () => {
         setIsAddModalOpen(false);
     }
 
-  return (
-      <>
-        <Header/>
-          <AddButton buttonName='Add entity' onClick={handleAddEntity}/>
-        <BudgetTable/>
-          <AddEntryModal isOpen={isAddModalOpen} onClose={handleCloseModal} onAddEntry={()=>{}}/>
-      </>
-  );
+    // const handleAddEntry = (newEntry) => {
+    //     // Tutaj dodaj kod obsługi dodawania wpisu do backendu
+    //     console.log('Adding entry:', newEntry);
+    // };
+
+    return (
+        <>
+            <Header />
+            <AddButton buttonName='Add entity' onClick={handleOnClick} />
+            <BudgetTable />
+            {/*<AddEntryModal isOpen={isAddModalOpen} onClose={handleCloseModal} onAddEntry={handleAddEntry} />*/}
+        </>
+    );
 }
 
 export default MyBudget;
