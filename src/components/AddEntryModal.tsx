@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import axios from '../api/axios';
+import useFetchBudgetInfo from "../pages/hooks/useFetchBudgetInfo";
 
 type AddEntryModalProps = {
     isOpen: boolean;
     onClose: () => void;
-    onAddEntry: (newEntry: { amount: number; type: string; category: string; date: Date }) => void;
 }
 
-const CREATE_BUDGET_ENTITY_URL = '/api/v1/data/budget-entities/createBudgetEntity'
+const CREATE_BUDGET_ENTITY_URL = '/api/v1/auth/addBudgetEntity'
 
-const AddEntryModal = ({ isOpen, onClose, onAddEntry }: AddEntryModalProps) => {
+const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
     const [amount, setAmount] = useState<number>(0);
     const [type, setType] = useState<string>('');
     const [category, setCategory] = useState<string>('');
     const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
+    const { budgetInfo } = useFetchBudgetInfo();
+    const budgetId = budgetInfo?.budgetId;
 
     const handleAddEntry = async () => {
         try {
             const newEntryData = {
+                budgetId,
                 amount: parseFloat(amount.toString()),
                 type,
                 category,
@@ -31,13 +34,11 @@ const AddEntryModal = ({ isOpen, onClose, onAddEntry }: AddEntryModalProps) => {
                 CREATE_BUDGET_ENTITY_URL,
                 newEntryData,
                 {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const updatedData = response.data;
-            // setMyData(updatedData);
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
 
             onClose();
         } catch (error) {
