@@ -32,7 +32,7 @@ const BudgetTable = ({ budgetEntitiesList }: BudgetEntityProps) => {
                         <td>{entity.amount}</td>
                         <td>{entity.type}</td>
                         <td>{entity.category}</td>
-                        <td>{entity.date.toString()}</td>
+                        <td>{(new Date(entity.date)).toLocaleDateString()}</td>
                     </tr>
                 ))
             ) : (

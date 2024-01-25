@@ -1,16 +1,16 @@
-import React, {useContext, useState} from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from '../api/axios';
-import useFetchBudgetInfo from "../pages/hooks/useFetchBudgetInfo";
+import useFetchBudgetInfo from '../pages/hooks/useFetchBudgetInfo';
 
 type AddEntryModalProps = {
     isOpen: boolean;
     onClose: () => void;
-}
+};
 
-const CREATE_BUDGET_ENTITY_URL = '/api/v1/auth/addBudgetEntity'
+const CREATE_BUDGET_ENTITY_URL = '/api/v1/auth/addBudgetEntity';
 
 const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
     const [amount, setAmount] = useState<number>(0);
@@ -19,9 +19,15 @@ const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
     const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const { budgetInfo } = useFetchBudgetInfo();
     const budgetId = budgetInfo?.budgetId;
+    const [error, setError] = useState<string>('');
 
     const handleAddEntry = async () => {
         try {
+            if (!amount || !type || !category || !date) {
+                setError('Please fill in all fields.');
+                return;
+            }
+
             const newEntryData = {
                 budgetId,
                 amount: parseFloat(amount.toString()),
@@ -43,6 +49,7 @@ const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
             onClose();
         } catch (error) {
             console.error('Error while adding entry:', error);
+            setError('An error occurred while adding the entry.');
         }
     };
 
@@ -60,7 +67,11 @@ const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
                         </Form.Group>
                         <Form.Group controlId="type">
                             <Form.Label>Type:</Form.Label>
-                            <Form.Control type="text" value={type} onChange={(e) => setType(e.target.value)} />
+                            <Form.Select value={type} onChange={(e) => setType(e.target.value)}>
+                                <option value="">Select value</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="category">
                             <Form.Label>Category:</Form.Label>
@@ -71,6 +82,7 @@ const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
                             <Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                         </Form.Group>
                     </Form>
+                    {error && <div className={"text-danger d-flex justify-content-center"}>{error}</div>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleAddEntry}>
