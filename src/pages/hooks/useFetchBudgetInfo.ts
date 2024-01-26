@@ -8,6 +8,7 @@ type BudgetResponse = {
     description: string;
     budgetEntitiesIds: string[];
     budgetUsersIds: string[];
+    primary: boolean;
 };
 
 const useFetchBudgetInfo = () => {

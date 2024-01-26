@@ -7,6 +7,7 @@ import AddEntryModal from "../components/AddEntryModal";
 import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
 import axios from "../api/axios";
+import useFetchBudgetInfo from "./hooks/useFetchBudgetInfo";
 
 type BudgetEntityType = {
     entityId: string
@@ -34,6 +35,17 @@ const calculateBudgetBalance = (budgetEntitiesList: BudgetEntityType[]) => {
 const MyBudget = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const { budgetEntitiesInfo } = useFetchBudgetEntitiesInfo();
+    const { budgetInfo } = useFetchBudgetInfo();
+
+    const isPrimary = () => {
+        if (budgetInfo?.primary) {
+            return "primary";
+        }
+
+        if (!budgetInfo?.primary) {
+            return "other";
+        }
+    }
 
     const handleOnClick = () => {
         setIsAddModalOpen(true);
@@ -58,8 +70,11 @@ const MyBudget = () => {
             <Header />
             <Container fluid>
                 <Row>
+                    <h3>{budgetInfo?.name} - {isPrimary()}</h3>
+                </Row>
+                <Row>
                     <Col md={9}>
-                        <h3>Budget balance: {calculateBudgetBalance(budgetEntitiesInfo.budgetEntitiesList)}</h3>
+                        <h4>Budget balance: {calculateBudgetBalance(budgetEntitiesInfo.budgetEntitiesList)}</h4>
                     </Col>
                     <Col md={3} className={"d-flex justify-content-end"}>
                         <AddButton buttonName="Add entity" onClick={handleOnClick} />
