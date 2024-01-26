@@ -6,6 +6,7 @@ import useFetchBudgetEntitiesInfo from './hooks/useFetchBudgetEntitiesInfo';
 import AddEntryModal from "../components/AddEntryModal";
 import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
+import axios from "../api/axios";
 
 type BudgetEntityType = {
     entityId: string
@@ -43,6 +44,15 @@ const MyBudget = () => {
         window.location.reload();
     };
 
+    const handleDelete = async (budgetEntityId: string) => {
+        try {
+        await axios.delete(`/api/v1/auth/deleteBudgetEntity/${budgetEntityId}`);
+        window.location.reload();
+    } catch (error) {
+        console.error('Error deleting entry:', error);
+    }
+    };
+
     return (
         <>
             <Header />
@@ -56,7 +66,7 @@ const MyBudget = () => {
                     </Col>
                 </Row>
             </Container>
-            {budgetEntitiesInfo && <BudgetTable budgetEntitiesList={budgetEntitiesInfo.budgetEntitiesList}/>}
+            {budgetEntitiesInfo && <BudgetTable budgetEntitiesList={budgetEntitiesInfo.budgetEntitiesList} onDelete={handleDelete}/>}
             <AddEntryModal isOpen={isAddModalOpen} onClose={handleCloseModal} />
         </>
     );
