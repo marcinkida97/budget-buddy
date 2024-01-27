@@ -22,31 +22,64 @@ type BudgetEntityProps = {
     }>;
 };
 
+const monthNames = [
+    'Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+    'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'
+];
+
+const getUniqueMonthsArray = (data: {entityId: string, amount: number, type: string, category: string, date: Date, budgetId: string}[]) => {
+    return Array.from(new Set(data.map(item => new Date(item.date).getMonth() + 1)));
+};
+
+const getSortedUniqueMonthsCategories = (uniqueMonthsArray: number[]) => {
+    return uniqueMonthsArray.sort((a, b) => {
+        const diff = (b + 12 - a) % 12 - (a + 12 - b) % 12;
+
+        if (diff !== 0) {
+            return diff;
+        }
+
+        return a - b;
+    });
+};
+
+const getMonthlyData = (data: {entityId: string, amount: number, type: string, category: string, date: Date, budgetId: string}[], type: string, month: string) => {
+    return data
+        .filter(item => item.type === type && monthNames[new Date(item.date).getMonth()] === month)
+        .reduce((sum, item) => sum + item.amount, 0);
+};
+
 const BudgetChart = ({ budgetEntitiesList }: BudgetEntityProps) => {
-    const categories = Array.from(new Set(budgetEntitiesList.map(item => item.category)));
+    budgetEntitiesList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    const fiveMonthsAgo = new Date();
+    fiveMonthsAgo.setMonth(fiveMonthsAgo.getMonth() - 5);
+
+    const last5MonthsData = budgetEntitiesList.filter(item => new Date(item.date) >= fiveMonthsAgo);
+
+    const uniqueMonthsArray = getUniqueMonthsArray(last5MonthsData);
+    const sortedUniqueMonthsCategories = getSortedUniqueMonthsCategories(uniqueMonthsArray);
+
+    const labels = uniqueMonthsArray.map(combination => monthNames[combination - 1]);
 
     const incomeData = {
         label: 'Incomes',
         backgroundColor: '#36A2EB',
-        data: categories.map(category =>
-            budgetEntitiesList
-                .filter(item => item.type === 'Income' && item.category === category)
-                .reduce((sum, item) => sum + item.amount, 0)
+        data: sortedUniqueMonthsCategories.map(month =>
+            getMonthlyData(last5MonthsData, 'Income', monthNames[month])
         ),
     };
 
     const expenseData = {
         label: 'Expenses',
         backgroundColor: '#FF6384',
-        data: categories.map(category =>
-            budgetEntitiesList
-                .filter(item => item.type === 'Expense' && item.category === category)
-                .reduce((sum, item) => sum + item.amount, 0)
+        data: sortedUniqueMonthsCategories.map(month =>
+            getMonthlyData(last5MonthsData, 'Expense', monthNames[month])
         ),
     };
 
     const chartData = {
-        labels: categories,
+        labels,
         datasets: [incomeData, expenseData],
     };
 
@@ -57,7 +90,7 @@ const BudgetChart = ({ budgetEntitiesList }: BudgetEntityProps) => {
                 type: 'category',
                 title: {
                     display: true,
-                    text: 'Category'
+                    text: 'Month'
                 }
             },
             y: {
