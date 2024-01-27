@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
 import axios from "../api/axios";
 import useFetchBudgetInfo from "./hooks/useFetchBudgetInfo";
+import Stack from "react-bootstrap/Stack";
 
 type BudgetEntityType = {
     entityId: string
@@ -68,19 +69,17 @@ const MyBudget = () => {
     return (
         <>
             <Header />
-            <Container fluid>
+            <Stack className={"textSize p-2"}>
                 <Row>
-                    <h3>{budgetInfo?.name} - {isPrimary()}</h3>
-                </Row>
-                <Row>
-                    <Col md={9}>
+                    <Col>
+                        <h3>{budgetInfo?.name} - {isPrimary()}</h3>
                         <h4>Budget balance: {calculateBudgetBalance(budgetEntitiesInfo.budgetEntitiesList)}</h4>
                     </Col>
-                    <Col md={3} className={"d-flex justify-content-end"}>
+                    <Col className={"d-flex justify-content-end"}>
                         <AddButton buttonName="Add entity" onClick={handleOnClick} />
                     </Col>
                 </Row>
-            </Container>
+            </Stack>
             {budgetEntitiesInfo && <BudgetTable budgetEntitiesList={budgetEntitiesInfo.budgetEntitiesList} onDelete={handleDelete}/>}
             <AddEntryModal isOpen={isAddModalOpen} onClose={handleCloseModal} />
         </>

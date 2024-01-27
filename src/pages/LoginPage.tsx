@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from '../api/axios';
 import {AxiosError} from "axios";
+import Logo from "../components/Header/Logo/Logo";
 
 const LOGIN_URL = '/api/v1/auth/authenticate';
 
@@ -71,51 +72,54 @@ const LoginPage = () => {
 
   return (
       <div className="login template d-flex justify-content-center align-items-center">
-        <div className="form_container p-5">
-          <form onSubmit={handleSubmit}>
-            <h3 className="text-center">Sign In</h3>
-            <div className="mb-2">
-              <label htmlFor="email">Email</label>
-              <input
-                  type="email"
-                  placeholder="email"
-                  className="form-control"
-                  id="email"
-                  ref={userRef}
-                  autoComplete="off"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  required
-              />
-            </div>
-            <div className="mb-2">
-              <label htmlFor="password">Password</label>
-              <input
-                  type="password"
-                  placeholder="password"
-                  className="form-control"
-                  id="password"
-                  ref={userRef}
-                  autoComplete="off"
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  required
-              />
-            </div>
-            <div className="d-grid">
-              <button type="submit" className="btn btn-primary">
-                Sign in
-              </button>
-            </div>
-            <p className="text-end mt-2">
-              Don't have an account yet? <Link to="/signup" className="ms-2">Sign up</Link>
-            </p>
-          </form>
-          {errMessage && (
-              <div className="alert alert-danger mt-3" ref={errRef} role="alert">
-                {errMessage}
+        <div className="p-2">
+          <Logo/>
+          <div className="p-5">
+            <form onSubmit={handleSubmit}>
+              <h3 className="text-center">Sign In</h3>
+              <div className="mb-2">
+                <label htmlFor="email">Email</label>
+                <input
+                    type="email"
+                    placeholder="email"
+                    className="form-control"
+                    id="email"
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                />
               </div>
-          )}
+              <div className="mb-2">
+                <label htmlFor="password">Password</label>
+                <input
+                    type="password"
+                    placeholder="password"
+                    className="form-control"
+                    id="password"
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    required
+                />
+              </div>
+              <div className="d-grid">
+                <button type="submit" className="btn btn-primary">
+                  Sign in
+                </button>
+              </div>
+              <p className="text-end mt-2">
+                Don't have an account yet? <Link to="/signup" className="ms-2">Sign up</Link>
+              </p>
+            </form>
+            {errMessage && (
+                <div className="alert alert-danger mt-3" ref={errRef} role="alert">
+                  {errMessage}
+                </div>
+            )}
+          </div>
         </div>
       </div>
   );

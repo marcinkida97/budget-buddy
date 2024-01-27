@@ -7,8 +7,8 @@ import UserInfo from "../UserInfo";
 
 const Logo = () => {
     return (
-        <Stack direction="horizontal" gap={3}>
-            <Image className="p-2" src={require('./piggy-bank.png')} height={100} width={100}/>
+        <Stack direction="horizontal" gap={3} className={"defaultColor textSize"}>
+            <Image className="p-2 imageSize" src={require('./piggy-bank.png')} height={100} width={100}/>
                 <Col>
                     <h1 className="text-left">Budget Buddy</h1>
                     <h2 className="text-left">Your Financial Friend</h2>

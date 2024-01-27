@@ -12,22 +12,21 @@ const Navigation = () => {
     }
 
     return (
-                <Navbar expand="lg">
-                    <Container>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Nav className="me-auto">
-                            <Nav.Item>
-                                <Nav.Link href={"/dashboard"}>Dashboard</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href={"/mybudget"}>My budget</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link href={"/"} onClick={handleLogout}>Logout</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    </Container>
-                </Navbar>
+        <Navbar expand="lg">
+            <Container>
+                <Nav className="me-auto flex-row">
+                    <Nav.Item className="me-2">
+                        <Nav.Link href={"/dashboard"}>Dashboard</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item className="me-2">
+                        <Nav.Link href={"/mybudget"}>My budget</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item className="me-3">
+                        <Nav.Link href={"/"} onClick={handleLogout}>Logout</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </Container>
+        </Navbar>
     );
 }
 

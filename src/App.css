@@ -29,6 +29,31 @@
   margin-bottom: 20px;
 }
 
+.textSize {
+  font-size: 100%;
+}
+
+@media (max-width: 600px) {
+  .textSize h1,
+  .textSize h2,
+  .textSize h3,
+  .textSize h4,
+  .textSize td {
+    font-size: 100%;
+  }
+
+  .textSize th {
+    font-size: 70%;
+  }
+}
+
+@media (max-width: 600px) {
+  .textSize .imageSize {
+    height: 18%;
+    width: 18%;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .form_container {
     width: 60%;

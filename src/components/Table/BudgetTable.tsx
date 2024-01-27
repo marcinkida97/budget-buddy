@@ -16,7 +16,7 @@ type BudgetEntityProps = {
 
 const BudgetTable = ({ budgetEntitiesList, onDelete }: BudgetEntityProps) => {
     return (
-        <Table striped bordered hover variant="light">
+        <Table striped bordered hover variant="light" className={"textSize"}>
             <thead>
             <tr>
                 <th>#</th>

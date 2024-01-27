@@ -72,8 +72,8 @@ const BudgetChart = ({ budgetEntitiesList }: BudgetEntityProps) => {
     };
 
     return (
-        <div className={"p-2"}>
-            <h2>Budget Chart</h2>
+        <div className={"p-2 textSize"}>
+            <h3>Budget Chart</h3>
             <Bar
                 data={chartData}
                 width={5}

@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <>
-            <Stack direction="horizontal" gap={3} className="p-2 d-flex bg-body-tertiary defaultColor default_margin_separation">
+            <Stack direction="horizontal" gap={3} className="p-2 d-flex bg-body-tertiary default_margin_separation">
                 <Col>
                     <Logo/>
                     <Navigation/>
