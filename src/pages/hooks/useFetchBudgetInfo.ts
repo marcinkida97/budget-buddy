@@ -22,7 +22,11 @@ const useFetchBudgetInfo = () => {
             if (budgetsIds.length > 0) {
                 try {
                     setLoading(true);
-                    const response = await axios.get(`/api/v1/auth/getBudget/${budgetsIds[0]}`);
+                    const response = await axios.get(`/api/v1/auth/getBudget/${budgetsIds[0]}`, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
                     setBudgetInfo(response.data);
                 } catch (error) {
                     setError('Error fetching budget information');

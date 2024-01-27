@@ -37,12 +37,12 @@
   .textSize h1,
   .textSize h2,
   .textSize h3,
-  .textSize h4,
-  .textSize td {
+  .textSize h4 {
     font-size: 100%;
   }
 
-  .textSize th {
+  .textSize th,
+  .textSize td {
     font-size: 70%;
   }
 }

@@ -21,7 +21,11 @@ const useFetchUser = (userId: string) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`/api/v1/auth/getUser/${userId}`);
+                const response = await axios.get(`/api/v1/auth/getUser/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
                 setUserData(response.data);
                 if(response.data){
                     setUserId(response.data.userId);

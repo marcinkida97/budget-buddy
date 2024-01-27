@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from '../../api/axios';
 import useFetchBudgetInfo from "./useFetchBudgetInfo";
-
-type BudgetEntity = {
-    budgetEntitiesList: Array<{
-        entityId: string;
-        amount: number;
-        type: string;
-        category: string;
-        date: Date;
-        budgetId: string;
-    }>;
-};
-
+import {BudgetEntityList, BudgetEntityType} from "../../api/types";
 
 const useFetchBudgetEntitiesInfo = () => {
-    const [budgetEntitiesInfo, setBudgetEntitiesInfo] = useState<BudgetEntity>({ budgetEntitiesList: [] });
+    const [budgetEntitiesInfo, setBudgetEntitiesInfo] = useState<BudgetEntityList>({ budgetEntitiesList: [] });
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const { budgetInfo } = useFetchBudgetInfo();
@@ -27,6 +16,10 @@ const useFetchBudgetEntitiesInfo = () => {
                 setLoading(true);
                 const response = await axios.post('/api/v1/auth/getBudgetEntities', {
                     budgetEntitiesIds: budgetEntitiesIds,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
                 });
                 setBudgetEntitiesInfo(response.data);
             } catch (error) {
