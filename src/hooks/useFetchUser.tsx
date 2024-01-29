@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
-import axios from '../../../api/axios';
-import {UserContext} from "../../../context/UserContext";
+import axios from '../api/axios';
+import {UserContext} from "../context/UserContext";
 
 type UserResponse = {
     userId: string;
@@ -46,7 +46,7 @@ const useFetchUser = (userId: string) => {
             setError('Invalid userId');
             setLoading(false);
         }
-    }, [userId]);
+    }, [setBudgetIds, setFirstname, setLastname, setUserId, userId]);
 
     return { loading, error, userData };
 };

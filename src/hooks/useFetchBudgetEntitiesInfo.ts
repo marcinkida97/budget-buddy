@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import axios from '../../api/axios';
+import axios from '../api/axios';
+import {BudgetEntityList} from "../types/types";
 import useFetchBudgetInfo from "./useFetchBudgetInfo";
-import {BudgetEntityList, BudgetEntityType} from "../../api/types";
 
 const useFetchBudgetEntitiesInfo = () => {
     const [budgetEntitiesInfo, setBudgetEntitiesInfo] = useState<BudgetEntityList>({ budgetEntitiesList: [] });

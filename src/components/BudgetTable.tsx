@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
-import {BudgetEntityType} from "../../api/types";
+import {BudgetEntityType} from "../types/types";
 
 type BudgetEntityProps = {
     budgetEntitiesList: BudgetEntityType[];
@@ -10,14 +10,14 @@ type BudgetEntityProps = {
 
 const BudgetTable = ({ budgetEntitiesList, onDelete }: BudgetEntityProps) => {
     return (
-        <Table striped bordered hover variant="light" className={"textSize table"}>
+        <Table striped bordered hover responsive variant="light" className={"textSize table"}>
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Type</th>
-                <th scope="col">Category</th>
-                <th scope="col">Date</th>
+                <th scope="col" className="d-none d-sm-table-cell">Category</th>
+                <th scope="col" className="d-none d-sm-table-cell">Date</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -28,7 +28,7 @@ const BudgetTable = ({ budgetEntitiesList, onDelete }: BudgetEntityProps) => {
                         <th scope="row">{index + 1}</th>
                         <td>{entity.amount}</td>
                         <td>{entity.type}</td>
-                        <td>{entity.category}</td>
+                        <td className="d-none d-sm-table-cell">{entity.category}</td>
                         <td>{new Date(entity.date).toLocaleDateString()}</td>
                         <td className={"d-flex justify-content-center"}>
                             <Button className={"btn btn-danger btn-sm"} onClick={() => onDelete(entity.entityId)}>Delete</Button>

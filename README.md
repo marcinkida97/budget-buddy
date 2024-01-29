@@ -8,9 +8,7 @@ Twój finansowy przyjaciel jest to aplikacja umożliwiająca zapisywanie bieżą
 - [Instrukcja uruchomienia](#instrukcja-uruchomienia)
 - [Struktura projektu](#struktura-projektu)
 - [Jak korzystać](#jak-korzystać)
-- [Przykłady użycia](#przykłady-użycia)
-- [Contributing](#contributing)
-- [Licencja](#licencja)
+- [Screeny z aplikacji](#screeny-z-aplikacji)
 
 ## Technologie
 
@@ -18,7 +16,7 @@ Główne technologie, które zostały użyte w tym projekcie to: ReactJS, Typesc
 
 ## Instrukcja uruchomienia
 
-0. **Uruchomienie backendu:** Instrukcję można znaleźć w repozytorium pod tym linkiem: [budget-buddy-api](https://github.com/marcinkida97/budget-buddy-api)
+0. **Uruchomienie backendu:** Instrukcję można znaleźć w repozytorium pod tym linkiem https://github.com/marcinkida97/budget-buddy-api
 
 1. **Instalacja zależności:** Uruchom `npm install` w katalogu projektu, aby zainstalować wszystkie wymagane zależności.
 
@@ -38,7 +36,23 @@ pages/ - to w nim są główne komponenty z widokami
 ## Jak korzystać
 
 1. Zarejestruj nowego użytkownika
+
+![Registration page](screenshots/signup_page.png)
+
 2. Zaloguj się
-3. W zakładce **My budget** dodawaj i usuwaj dochody i wydatki
+
+![Login page](screenshots/signin_page.png)
+
+3. W zakładce **My budget** dodawaj i usuwaj dochody i wydatki.
+Nad tabelą widzimy nazwe budżetu.
+Poniżej wyświetlony jest aktualny stan budżetu.
+Po prawej stronie znajduje się niebiski przycisk Add entity, z pomocą którego można dodać wpis do tabeli.
+W celu usunięcia wpisu naciśnij przycisk Delete w odpowiednim wierszu.
+
+![My budget](screenshots/budget_table.png)
+
 4. Na stronie **Dashboard** widoczny jest wykres przedstawiający wysokosć wydatków i dochodów w ostatnich 5-ciu miesiącach
-5. Po wszystkim się wyloguj klikając **Logout**
+
+![Dashboard](screenshots/dashboard.png)
+
+5. Po wszystkim wyloguj sie klikając **Logout**

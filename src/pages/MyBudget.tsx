@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import AddButton from '../components/AddButton';
-import BudgetTable from '../components/Table/BudgetTable';
-import useFetchBudgetEntitiesInfo from './hooks/useFetchBudgetEntitiesInfo';
+import BudgetTable from '../components/BudgetTable';
+import useFetchBudgetEntitiesInfo from '../hooks/useFetchBudgetEntitiesInfo';
 import AddEntryModal from "../components/AddEntryModal";
-import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
 import axios from "../api/axios";
-import useFetchBudgetInfo from "./hooks/useFetchBudgetInfo";
+import useFetchBudgetInfo from "../hooks/useFetchBudgetInfo";
 import Stack from "react-bootstrap/Stack";
 
 type BudgetEntityType = {

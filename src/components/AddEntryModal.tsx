@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from '../api/axios';
-import useFetchBudgetInfo from '../pages/hooks/useFetchBudgetInfo';
+import useFetchBudgetInfo from '../hooks/useFetchBudgetInfo';
 
 type AddEntryModalProps = {
     isOpen: boolean;
@@ -36,7 +36,7 @@ const AddEntryModal = ({ isOpen, onClose }: AddEntryModalProps) => {
                 date: new Date(date),
             };
 
-            const response = await axios.post(
+            await axios.post(
                 CREATE_BUDGET_ENTITY_URL,
                 newEntryData,
                 {

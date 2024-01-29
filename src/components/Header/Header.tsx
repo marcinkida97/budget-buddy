@@ -1,9 +1,9 @@
 import Stack from "react-bootstrap/Stack";
 import Logo from "./Logo/Logo";
-import Navigation from "./Navigation/Navigation";
+import Navigation from "./Navigation";
 import {Col} from "react-bootstrap";
 import React from "react";
-import useFetchUser from "./hooks/useFetchUser";
+import useFetchUser from "../../hooks/useFetchUser";
 
 const Header = () => {
     const userId = localStorage.getItem('userId');

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions} from 'chart.js';
-import {BudgetEntityList, BudgetEntityType} from "../api/types";
+import {BudgetEntityList, BudgetEntityType} from "../types/types";
 
 ChartJS.register(
     CategoryScale,
