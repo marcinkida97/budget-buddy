@@ -29,7 +29,7 @@ const BudgetTable = ({ budgetEntitiesList, onDelete }: BudgetEntityProps) => {
                         <td>{entity.amount}</td>
                         <td>{entity.type}</td>
                         <td className="d-none d-sm-table-cell">{entity.category}</td>
-                        <td>{new Date(entity.date).toLocaleDateString()}</td>
+                        <td className="d-none d-sm-table-cell">{new Date(entity.date).toLocaleDateString()}</td>
                         <td className={"d-flex justify-content-center"}>
                             <Button className={"btn btn-danger btn-sm"} onClick={() => onDelete(entity.entityId)}>Delete</Button>
                         </td>

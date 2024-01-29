@@ -56,3 +56,12 @@ W celu usunięcia wpisu naciśnij przycisk Delete w odpowiednim wierszu.
 ![Dashboard](screenshots/dashboard.png)
 
 5. Po wszystkim wyloguj sie klikając **Logout**
+
+6. Dla większej wygody korzystania na urządzeniach mobilnych wprowadzone zostały 2 usprawnienia:
+
+Menu na urządzeniu mobilnym rozwijane jest z 'burger button'  
+![Burger colapsed](screenshots/burger_colapsed.png)  
+![Burger expanded](screenshots/burger_expanded.png)  
+
+Tabela na urządzeniu mobilnym ma zmniejszoną ilość kolumn (brak kolumny Category i Date)  
+![Mobile table](screenshots/mobile_table.png)
